@@ -1,0 +1,42 @@
+<html>
+  <head>
+     <title></title>
+     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0;width=device-width;user-scalable=no;"></meta>
+     <link rel="stylesheet" type="text/css" href="styles/bootstrap/css/bootstrap.css"/>
+     <link rel="stylesheet" type="text/css" href="styles/main.css"/>
+     <link rel="stylesheet" type="text/css" href="styles/force.css"/>
+  </head>
+  <body>
+
+    <!-- Contents -->
+      <hr/>
+      <div id="main_container">
+        <span class="hat btn">Hat Button</span>
+      </div>
+      
+    <!-- Inline Templates -->
+    <script type="text/template" id="sample_template">
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="lib/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="styles/bootstrap/js/bootstrap.min.jstyles/bootstrap/js/bootstrap.min.jss"></script>
+    <script type="text/javascript" charset="utf-8" src="lib/crossfilter.js"></script>
+
+    <script type="text/javascript" charset="utf-8" src="lib/underscore.js"></script>
+    <script type="text/javascript" charset="utf-8" src="lib/backbone.js"></script>
+
+
+    <script type="text/javascript" charset="utf-8" src="app/view.js"></script>
+    <script language="Javascript" type="text/javascript">
+       var sample_view = null;
+       var sample_router = null;
+       function launch(){
+         sample_view = new SampleView();
+         sample_view.setElement($("#main_container"));
+         samplerouter = new SampleRouter();
+         Backbone.history.start({pushState: false, root: "index.html"})
+       }
+     </script>
+    <script type="text/javascript" charset="utf-8" src="app/routers.js"></script>
+  </body>
+</html>
