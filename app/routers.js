@@ -1,4 +1,4 @@
-var SampleRouter = Backbone.Router.extend({
+var BiasRouter = Backbone.Router.extend({
   routes: {
     ":left/:right": "categories",
     "": "nocategory"

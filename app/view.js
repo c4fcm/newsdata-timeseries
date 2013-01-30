@@ -7,6 +7,7 @@ var SampleView = Backbone.View.extend({
   },
 
   initialize: function(){
+    
     _.bindAll(this, 'render');
     console.log("initializing...");
   },
