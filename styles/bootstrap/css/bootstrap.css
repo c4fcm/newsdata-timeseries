@@ -171,7 +171,7 @@ a:hover {
 }
 
 .row {
-  margin-left: -20px;
+  width: auto;
   *zoom: 1;
 }
 
@@ -230,6 +230,7 @@ a:hover {
 
 .span4 {
   width: 300px;
+ 
 }
 
 .span3 {

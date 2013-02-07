@@ -4,10 +4,11 @@
      <!-- <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0;width=device-width;user-scalable=no;"></meta> -->
      <link rel="stylesheet" type="text/css" href="styles/bootstrap/css/bootstrap.css"/>
      <link rel="stylesheet" type="text/css" href="styles/main.css"/>
-     <!-- <link rel="stylesheet" type="text/css" href="styles/force.css"/> -->
+
 
      
     <style>
+
 
       body {
         font: 14px sans-serif;
@@ -27,48 +28,80 @@
       .x.axis path {
         display: none;
       }
-
-      </style>
+    </style>
   </head>
   <body>
 
+    <h2> Recently Quoted Twitter Users </h2>
     <!-- Contents -->
       <hr/>
-<!--       <div id="main_container">
-        <span class="hat btn">Hat Button</span>
-      </div> -->
+      <div class="container" id="main_container">
 
-      <div id="results">
-
-      </div>
+    <div id="results_grid">
+      <div id="results1" class="row-fluid">
+        </div>
       
+      <div id="results2" class="row-fluid">
+        </div>
+
+      <div id="results3" class="row-fluid">
+        </div>
+      </div>
+    </div>
+    <div id="graph_view">
+         hello
+    </div>
+
+
     <!-- Inline Templates -->
-    <!-- // <script type="text/template" id="bias_template"> -->
-    <!-- // </script> -->
+
 
     <script type="text/template" id="result_template">
-     <div id="twitter_<%= row.key %>"><img src="https://twimg0-a.akamaihd.net/profile_images/1290047367/59b76628-ebc4-4173-87ee-888a741c9be5_bigger.jpg"><a href='http://twitter.com/<%= row.key %>' > <%= row.key %> </a><%= _.size(row.value.occurrences)%></div>
+       <div class="span4" id="<%= i %>">
+        <a href='http://twitter.com/<%= row.value.username %>' >
+          <div id="twitter_<%= row.value.username %>_image">
+            <%= row.value.username %>
+          </div>
+        </a>
+
+      </div>
+
+    </script>
+
+    <script type="text/template" id="occurrence_template">
+      <li><a href="<%=line.value.url%>"><%=line.value.title%></a></li>
+    </script>
+
+    <script type="text/template" id="image_template">
+      <img src="<%= image_url.replace('normal', 'bigger')%>" > </img><br/>
+    </script>
+
+    <script type="text/template" id="graph_template">
+
     </script>
 
 
-  <script type="text/javascript" charset="utf-8" src="lib/jquery-1.7.2.min.js"></script>
-  <!-- // <script type="text/javascript" charset="utf-8" src="styles/bootstrap/js/bootstrap.min.jstyles/bootstrap/js/bootstrap.min.jss"></script> -->
+    <script type="text/javascript" charset="utf-8" src="lib/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="styles/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="lib/crossfilter.js"></script>
-    <script type="text/javascript" charset="utf-8" src="lib/nv.d3.min.js"></script>
+    <!-- // <script type="text/javascript" charset="utf-8" src="lib/nv.d3.min.js"></script> -->
 
     <script type="text/javascript" charset="utf-8" src="lib/underscore.js"></script>
     <script type="text/javascript" charset="utf-8" src="lib/backbone.js"></script>
 
     <script type="text/javascript" charset="utf-8" src="http://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="lib/jquery-twitter-plugin.js"></script>
+    <script type="text/javascript" charset="utf-8" src="lib/codebird-js-1.0.0108.1131/codebird.js"></script>
 
-    <!-- // <script type="text/javascript" charset="utf-8" src="app/view.js"></script> -->
     <script type="text/javascript" charset="utf-8" src="examples/get_data_from_couch_example.js"></script>
+    <script type="text/javascript" charset="utf-8" src="app/graph.js"></script>
 
     <script language="Javascript" type="text/javascript">
        var sample_view = null;
        var sample_router = null;
        function launch(){
          sample_view = new BiasView();
+         graph_view = new GraphView()
          sample_view.setElement($("#main_container"));
          samplerouter = new BiasRouter();
          Backbone.history.start({pushState: false, root: "index.html"})
