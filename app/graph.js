@@ -1,23 +1,9 @@
 
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 1600 - margin.left - margin.right,
-    height = 1000 - margin.top - margin.bottom;
+  width = 1600 - margin.left - margin.right,
+  height = 1000 - margin.top - margin.bottom;
 
 
-var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .1);
-
-
-var y = d3.scale.linear()
-    .range([height, 0]);
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left")
 
 var svg = d3.select("#graph_view").append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -52,41 +38,64 @@ var GraphView = Backbone.View.extend({
 
     url = "db/articles/_design/articles/_view/date"
 
+    var cf = crossfilter([]);
+
     jQuery.getJSON(url, function(data) {
 
-      _.each(data.rows.slice(1, 100), function(row) {
+      _.each(data.rows, function(row) {
         console.log(row.key)
+        cf.add([{'date': d3.time.day.round(new Date(row.key)), 'refs': row.value.ref.length}])
       })
-      // _.each(data.rows, function(row) {
-      //   row.value.ref
-      // });
 
-      x.domain(data.rows.map(function(row) { return new Date(row.key).toDateString(); }));
-      y.domain([0, 100]);
+    var date = cf.dimension(function(d) { return d.date; });
+    var dates = date.group()
 
-      svg.append("g")
-          .attr("class", "x axis")
-          .attr("transform", "translate(0," + height + ")")
-          .call(xAxis);
 
-      svg.append("g")
-          .attr("class", "y axis")
-          .call(yAxis)
-        .append("text")
-          .attr("transform", "rotate(-90)")
-          .attr("y", 6)
-          .attr("dy", ".71em")
-          .style("text-anchor", "end")
-          .text("Frequency");
+    alldates = dates.top(Infinity)
 
-      svg.selectAll(".bar")
-          .data(data.rows)
-        .enter().append("rect")
-          .attr("class", "bar")
-          .attr("x", function(row) { return x(new Date(row.key).toDateString()); })
-          .attr("width", x)
-          .attr("y", function(row) { return y(row.value.ref.length); })
-          .attr("height", function(row) { return height - y(row.value.ref.length); });
+    console.log(alldates)
+
+    var x = d3.time.scale()
+        .range([0, 1000])
+
+    var y = d3.scale.linear()
+        .range([height, 0]);
+
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left")
+
+//    x.domain(alldates.map(function(row) { return row.key; }));
+    x.domain([new Date(2008, 4, 1), new Date(2013, 1, 1)])
+    y.domain([0, 200]);
+
+
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+      .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end");
+
+    svg.selectAll(".bar")
+        .data(alldates)
+      .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", function(row) { return x(row.key); })
+        .attr("width", 6)
+        .attr("y", function(row) { console.log(row.value); return y(row.value); })
+        .attr("height", function(row) { return height - y(row.value); });
 
     });
   },
