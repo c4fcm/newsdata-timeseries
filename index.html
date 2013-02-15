@@ -69,7 +69,7 @@
     </script>
 
     <script type="text/template" id="occurrence_template">
-      <div><a href="<%=line.value.url%>"><%=line.value.publish_date%>: <%=line.value.title%></a></div>
+      <div class="occurrence"><%=date.toLocaleDateString()%>: <a href="<%=line.value.url%>"><%=line.value.title%></a></div>
     </script>
 
     <script type="text/template" id="image_template">

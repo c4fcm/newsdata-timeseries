@@ -87,7 +87,7 @@ var BiasView = Backbone.View.extend({
         _.each(row.value.occurrences, function(occurrence){
           jQuery.getJSON("/db/articles/_design/articles/_view/story_url?key=" + occurrence.story_id, function(d) {
             _.each(d.rows, function(line) {
-              $("#"+i).append(that.occurrence_template({line:line}));
+              $("#"+i).append(that.occurrence_template({line:line, date:dateFromUTC(line.value.publish_date, '-')}));
             });
           });
         });
