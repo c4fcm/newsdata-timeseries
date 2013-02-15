@@ -29,7 +29,24 @@ var BiasView = Backbone.View.extend({
 
   get_users: function(account_url) {
     that = this;
-    query_string = '&startkey=1355011200000&endkey=1355011113600' + '&limit=9'
+
+
+    var newest_time = 0;
+
+    $.ajax({
+       type: 'GET',
+       url: that.account_url + '&limit=1',
+       dataType: 'json',
+       success: function(data) { 
+       newest_time = data.rows[0].key
+    },
+       data: {},
+       async: false
+    });
+
+    var newest_date = new Date(newest_time);
+    var start_date = Date.parse(new Date(newest_date.getFullYear(), newest_date.getMonth(), newest_date.getDate()));
+    query_string = '&startkey=' + start_date + '&limit=9'
 
  
 
