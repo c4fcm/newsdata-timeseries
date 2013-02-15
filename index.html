@@ -60,7 +60,7 @@
        <div class="twitter_account span4" id="<%= i %>">
         <a href='http://twitter.com/<%= row.value.username %>' >
           <div id="twitter_<%= row.value.username %>_image">
-            <%= row.value.username %>
+            <span class="twitter_username"><%= row.value.username %></span>
           </div>
         </a>
 
@@ -73,7 +73,7 @@
     </script>
 
     <script type="text/template" id="image_template">
-      <img src="<%= image_url.replace('normal', 'bigger')%>" > </img><br/>
+      <img src="<%= image_url.replace('normal', 'bigger')%>" > </img>
     </script>
 
     <script type="text/template" id="graph_template">
