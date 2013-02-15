@@ -1,7 +1,25 @@
 .row {
-	width = auto;
+}
+h2 {
+    text-align: center;
+}
+.twitter_account {
+    background: none repeat scroll 0 0 #EEEEEE;
+    border-radius: 8px 8px 8px 8px;
+    margin-bottom: 5px;
+    padding: 8px;
+}
+.twitter_account img {
+    border: medium none;
+    text-decoration: none;
+    width: 32px;
+}
+.twitter_account .twitter_username {
+    display: inline-block;
+    font-size: 18px;
+    margin-left: 10px;
 }
 
-h2 {
-	text-align: center;
+.twitter_account .occurrence{
+  margin-top:2px;
 }

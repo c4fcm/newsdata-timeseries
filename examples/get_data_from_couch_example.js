@@ -63,7 +63,9 @@ var BiasView = Backbone.View.extend({
 
     var newest_date = new Date(newest_time);
     var start_date = Date.parse(new Date(newest_date.getFullYear(), newest_date.getMonth(), newest_date.getDate()));
-    query_string = '&startkey=' + start_date + '&limit=9'
+    var occurrence_limit = 15
+    var account_rows = occurrence_limit/3
+    query_string = '&startkey=' + start_date + '&limit='+occurrence_limit;
 
  
 
@@ -82,7 +84,7 @@ var BiasView = Backbone.View.extend({
         })
       
 
-        $("#results"+((i%3)+1)).prepend(that.result_template({row:row, i:i}))
+        $("#results"+((i%account_rows)+1)).prepend(that.result_template({row:row, i:i}))
 
         _.each(row.value.occurrences, function(occurrence){
           jQuery.getJSON("/db/articles/_design/articles/_view/story_url?key=" + occurrence.story_id, function(d) {
