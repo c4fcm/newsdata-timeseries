@@ -35,11 +35,13 @@ var BiasView = Backbone.View.extend({
   },
 
   show_view: function(){
-    alert("accounts")
+    $('#graph_view').toggle()
+    $('#results_grid').toggle()
   },
 
   hide_view:function(){
-    // css display block vs none
+    $('#graph_view').toggle()
+    $('#results_grid').toggle()
 
   },
 

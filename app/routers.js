@@ -9,14 +9,13 @@ var BiasRouter = Backbone.Router.extend({
   },
 
   show_graph: function(){
-    alert("poop!")
 	  graph_view.show_view();
 	  accounts_view.hide_view();
   },
 
   show_accounts: function(){
   	graph_view.hide_view();
-	accounts_view.show_view();
+  	accounts_view.show_view();
   },
 
   categories: function(left,right){
